@@ -1,4 +1,4 @@
-# sidekiq-statsd-middleware
+# sidekiq_statsd_middleware
 
 A Ruby gem that provides a server middleware component for Sidekiq that sends
 worker success and failure counts, and job timing information to StatsD.
