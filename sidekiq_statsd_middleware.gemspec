@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['tom@newspaperclub.com']
   spec.homepage      = 'https://github.com/newspaperclub/sidekiq_statsd_middleware'
   spec.summary       = 'Server Middleware for Sidekiq to report metrics from workers to StatsD'
+  spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
