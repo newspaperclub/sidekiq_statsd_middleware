@@ -26,7 +26,7 @@ module Sidekiq::Statsd
       context 'yielding the worker block' do
         it 'counts a success and times the duration' do
           client.should_receive(:time).with("sidekiq.dummy_worker.duration").and_yield
-          client.should_receive(:timing).with("sidekiq.dummy_worker.latency", an_instance_of(Float))
+          client.should_receive(:timing).with("sidekiq.dummy_worker.latency", an_instance_of(Fixnum))
           client.should_receive(:increment).with("sidekiq.dummy_worker.success")
           middleware.call(worker, msg, queue) { double }
         end
@@ -34,7 +34,7 @@ module Sidekiq::Statsd
 
       context 'raising in the worker block' do
         it 'counts a failure and times the duration' do
-          client.should_receive(:timing).with("sidekiq.dummy_worker.latency", an_instance_of(Float))
+          client.should_receive(:timing).with("sidekiq.dummy_worker.latency", an_instance_of(Fixnum))
           client.should_receive(:time).with("sidekiq.dummy_worker.duration").and_yield
           client.should_receive(:increment).with("sidekiq.dummy_worker.failure")
           expect { middleware.call(worker, msg, queue) { raise } }.to raise_error
@@ -66,7 +66,7 @@ module Sidekiq::Statsd
 
         it 'should count with the correct prefix' do
           client.should_receive(:time).with("foo.dummy_worker.duration").and_yield
-          client.should_receive(:timing).with("foo.dummy_worker.latency", an_instance_of(Float))
+          client.should_receive(:timing).with("foo.dummy_worker.latency", an_instance_of(Fixnum))
           client.should_receive(:increment).with("foo.dummy_worker.success")
           middleware.call(worker, msg, queue) { double }
         end
@@ -82,7 +82,7 @@ module Sidekiq::Statsd
 
       it 'should count with the correct prefix' do
         client.should_receive(:time).with("sidekiq.dummy_module.dummy_worker.duration").and_yield
-        client.should_receive(:timing).with("sidekiq.dummy_module.dummy_worker.latency", an_instance_of(Float))
+        client.should_receive(:timing).with("sidekiq.dummy_module.dummy_worker.latency", an_instance_of(Fixnum))
         client.should_receive(:increment).with("sidekiq.dummy_module.dummy_worker.success")
         middleware.call(worker, msg, queue) { double }
       end

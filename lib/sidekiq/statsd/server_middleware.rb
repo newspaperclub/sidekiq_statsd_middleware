@@ -13,7 +13,8 @@ module Sidekiq
 
       def call(worker, msg, queue)
         if msg['enqueued_at']
-          latency = Time.now.to_f - msg['enqueued_at']
+          # convert and round to ms
+          latency = ((Time.now.to_f - msg['enqueued_at']) * 1000).round 
           client.timing(metric_key(worker, "latency"), latency)
         end
 
